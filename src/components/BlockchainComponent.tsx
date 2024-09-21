@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Blockchain } from '../blockchain/Blockchain';
 import { Block } from '../blockchain/Block';
 import BlockComponent from './BlockComponent';
+import { getRandomCapital } from '../utils/getRandomCapital';
 
 const BlockchainComponent: React.FC = () => {
   const [blockchain, setBlockchain] = useState<Blockchain | null>(null);
@@ -17,7 +18,7 @@ const BlockchainComponent: React.FC = () => {
 
   const generateBlock = () => {
     if (blockchain) {
-      const newBlock = new Block(Date.now(), blockchain.getLatestBlock().hash, `Block ${blockchain.chain.length}`);
+      const newBlock = new Block(Date.now(), blockchain.getLatestBlock().hash, getRandomCapital());
       blockchain.addBlock(newBlock);
       // Update the block count to trigger a re-render
       setBlockCount(blockchain.chain.length);
