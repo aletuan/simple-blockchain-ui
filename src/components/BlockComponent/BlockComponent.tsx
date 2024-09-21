@@ -1,7 +1,9 @@
 import React from 'react';
-import { Block } from '../blockchain/Block';
-import { truncateHash } from '../utils/truncateHash';
-import { capitalColors } from '../utils/capitalColors';
+import { Block } from '../../blockchain/Block';
+
+import { truncateHash } from '../../utils/truncateHash';
+import { capitalColors } from '../../utils/capitalColors';
+
 import './BlockComponent.css'; // Import the CSS file
 
 interface BlockProps {
