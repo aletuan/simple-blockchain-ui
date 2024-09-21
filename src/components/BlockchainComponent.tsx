@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Blockchain } from './Blockchain';
-import { Block } from './Block';
+import { Blockchain } from '../blockchain/Blockchain';
+import { Block } from '../blockchain/Block';
 import BlockComponent from './BlockComponent';
 
 const BlockchainComponent: React.FC = () => {

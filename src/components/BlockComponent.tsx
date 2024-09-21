@@ -1,15 +1,12 @@
 import React from 'react';
-import { Block } from './Block';
+import { Block } from '../blockchain/Block';
+import { truncateHash } from '../utils/truncateHash';
 
 interface BlockProps {
   block: Block;
   index: number;
   isValid: boolean;
 }
-
-const truncateHash = (hash: string, length: number = 10): string => {
-    return hash.length > length ? `${hash.substring(0, length)}...` : hash;
-};
 
 const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   return (

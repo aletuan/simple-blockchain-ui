@@ -1,5 +1,5 @@
 import React from 'react';
-import BlockchainComponent from './BlockchainComponent';
+import BlockchainComponent from './components/BlockchainComponent';
 import './App.css';
 
 const App: React.FC = () => {
