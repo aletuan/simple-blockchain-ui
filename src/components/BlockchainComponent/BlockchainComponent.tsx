@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import { Blockchain } from '../blockchain/Blockchain';
-import { Block } from '../blockchain/Block';
-import BlockComponent from './BlockComponent';
-import { getRandomCapital } from '../utils/getRandomCapital';
+
+import { Blockchain } from '../../blockchain/Blockchain';
+import { Block } from '../../blockchain/Block';
+
+import BlockComponent from './../BlockComponent';
+
+import { getRandomCapital } from '../../utils/getRandomCapital';
+
 import './BlockchainComponent.css'; // Import the CSS file
 
 const BlockchainComponent: React.FC = () => {
