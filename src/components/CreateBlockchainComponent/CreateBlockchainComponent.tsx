@@ -16,7 +16,7 @@ const CreateBlockchainComponent: React.FC<CreateBlockchainProps> = ({
 }) => {
   return (
     <div className="create-blockchain ">
-      <h1>Create New Blockchain</h1>
+      <h1>Create Blockchain</h1>
       <div className="input-group">
         <label htmlFor="difficulty">Difficulty:</label>
         <input
