@@ -27,21 +27,23 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   };  
 
   return (
-    <div className="blockchain-view">
-      <h1 className="blockchain-header">Simple Blockchain</h1>
-      <p className="block-count">Number of Blocks: {blockCount}</p>
-      <p className="elapsed-time">Elapsed Time: {elapsedTime} seconds</p>
-      <button
+    <div className="blockchain-view-container">
+      <div className="blockchain-view">
+        <h1 className="blockchain-header">Simple Blockchain</h1>
+        <p className="block-count">Number of Blocks: {blockCount}</p>
+        <p className="elapsed-time">Elapsed Time: {elapsedTime} seconds</p>
+        <button
           className="generate-button"
           onClick={handleGenerateBlock}
           disabled={isGenerating}
         >
           {isGenerating ? 'Generating...' : 'Generate New Block'}
-      </button>
-      <div id="blockchain">
-        {blockchain.chain.slice().reverse().map((block, index) => (
-          <BlockComponent key={index} block={block} index={blockchain.chain.length - 1 - index} isValid={blockchain.isChainValid()} />
-        ))}
+        </button>
+        <div className="blockchain-list">
+          {blockchain.chain.slice().reverse().map((block, index) => (
+            <BlockComponent key={index} block={block} index={blockchain.chain.length - 1 - index} isValid={blockchain.isChainValid()} />
+          ))}
+        </div>
       </div>
     </div>
   );
