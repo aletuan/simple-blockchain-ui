@@ -15,6 +15,7 @@ const BlockchainComponent: React.FC = () => {
   const [blockCount, setBlockCount] = useState<number>(0);
   const [difficulty, setDifficulty] = useState<number>(2); // Default difficulty
   const [showWarning, setShowWarning] = useState<boolean>(false);
+  const [elapsedTime, setElapsedTime] = useState<number>(0);
 
   const handleDifficultyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
@@ -39,7 +40,10 @@ const BlockchainComponent: React.FC = () => {
   const generateBlock = () => {
     if (blockchain) {
       const newBlock = new Block(Date.now(), blockchain.getLatestBlock().hash, getRandomCapital());
+      const startTime = Date.now();
       newBlock.mineBlock(difficulty); // Mine the block with the specified difficulty
+      const endTime = Date.now();
+      setElapsedTime((endTime - startTime) / 1000); // Calculate elapsed time in seconds
       blockchain.addBlock(newBlock);
       // Update the block count to trigger a re-render
       setBlockCount(blockchain.chain.length);
@@ -69,6 +73,7 @@ const BlockchainComponent: React.FC = () => {
           <h1 className="blockchain-header">Simple Blockchain</h1>
           <p className="block-count">Number of Blocks: {blockCount}</p>
           <button className="generate-button" onClick={generateBlock}>Generate New Block</button>
+          <p className="elapsed-time">Elapsed Time: {elapsedTime} seconds</p>
           <div id="blockchain">
             {blockchain?.chain.slice().reverse().map((block, index) => (
               <BlockComponent key={index} block={block} index={blockchain.chain.length - 1 - index} isValid={blockchain.isChainValid()} />
