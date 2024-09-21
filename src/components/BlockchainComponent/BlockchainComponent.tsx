@@ -34,7 +34,7 @@ const BlockchainComponent: React.FC = () => {
     setView('view');
   };
 
-  const generateBlock = () => {
+  const generateBlock = async () => {
     if (blockchain) {
       const newBlock = new Block(Date.now(), blockchain.getLatestBlock().hash, getRandomCapital());
       const startTime = Date.now();
