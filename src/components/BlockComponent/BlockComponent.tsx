@@ -4,7 +4,7 @@ import { Block } from '../../blockchain/Block';
 import { truncateHash } from '../../utils/truncateHash';
 import { capitalColors } from '../../utils/capitalColors';
 
-import './BlockComponent.css'; // Import the CSS file
+import './BlockComponent.css';
 
 interface BlockProps {
   block: Block;
@@ -44,7 +44,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
     <div className={`block ${isValid ? 'valid' : 'invalid'}`} style={{ backgroundColor }}>
       <p><strong>Block {index}</strong></p>
       <p>Timestamp: {block.timestamp}</p>
-      <p>Formatted time: {formattedTimestamp}</p>
+      <p>Time: {formattedTimestamp}</p>
       <p>Previous Hash: {truncateHash(block.previousHash)}</p>
       <p>Hash: {truncateHash(block.hash)}</p>
       <p>Data: {formattedData}</p>
