@@ -4,24 +4,45 @@ import { Block } from './Block';
 import BlockComponent from './BlockComponent';
 
 const BlockchainComponent: React.FC = () => {
-  const [blockchain] = useState(new Blockchain());
-  const [blockchainState, setBlockchain] = useState(blockchain);
+  const [blockchain, setBlockchain] = useState<Blockchain | null>(null);
+  const [view, setView] = useState<'create' | 'view'>('create');
+  const [blockCount, setBlockCount] = useState<number>(0);
+
+  const createNewBlockchain = () => {
+    const newBlockchain = new Blockchain();
+    setBlockchain(newBlockchain);
+    setBlockCount(newBlockchain.chain.length);
+    setView('view');
+  };
 
   const generateBlock = () => {
-    const newBlock = new Block(Date.now(), blockchain.getLatestBlock().hash, `Block ${blockchain.chain.length}`);
-    blockchain.addBlock(newBlock);
-    setBlockchain(new Blockchain());
+    if (blockchain) {
+      const newBlock = new Block(Date.now(), blockchain.getLatestBlock().hash, `Block ${blockchain.chain.length}`);
+      blockchain.addBlock(newBlock);
+      // Update the block count to trigger a re-render
+      setBlockCount(blockchain.chain.length);
+    }
   };
 
   return (
     <div>
-      <h1>Simple Blockchain</h1>
-      <div id="blockchain">
-        {blockchainState.chain.map((block, index) => (
-          <BlockComponent key={index} block={block} index={index} isValid={blockchainState.isChainValid()} />
-        ))}
-      </div>
-      <button onClick={generateBlock}>Generate New Block</button>
+      {view === 'create' ? (
+        <div>
+          <h1>Create New Blockchain</h1>
+          <button onClick={createNewBlockchain}>Create New Blockchain</button>
+        </div>
+      ) : (
+        <div>
+          <h1>Simple Blockchain</h1>
+          <p>Number of Blocks: {blockCount}</p>
+          <div id="blockchain">
+            {blockchain?.chain.map((block, index) => (
+              <BlockComponent key={index} block={block} index={index} isValid={blockchain.isChainValid()} />
+            ))}
+          </div>
+          <button onClick={generateBlock}>Generate New Block</button>
+        </div>
+      )}
     </div>
   );
 };
