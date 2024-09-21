@@ -2,9 +2,11 @@ import { Block } from './Block';
 
 export class Blockchain {
   chain: Block[];
+  difficulty: number;
 
-  constructor() {
+  constructor(difficulty: number) {
     this.chain = [this.createGenesisBlock()];
+    this.difficulty = difficulty; // Set the difficulty level
   }
 
   createGenesisBlock(): Block {

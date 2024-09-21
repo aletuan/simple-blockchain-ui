@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import { Blockchain } from '../../blockchain/Blockchain';
-import { Block } from '../../blockchain/Block';
+import { Mempool } from '../../blockchain/Mempool';
+import { Miner } from '../../blockchain/Miner';
+import { Transaction } from '../../blockchain/Transaction';
 import CreateBlockchainComponent from '../CreateBlockchainComponent';
 import DisplayBlockchainComponent from '../DisplayBlockchainComponent';
-import { getRandomCapital } from '../../utils/getRandomCapital';
-import './BlockchainComponent.css'; // Import the CSS file
+import './BlockchainComponent.css';
+
+
+const sampleTransactions: Transaction[] = [
+  new Transaction('Charlie','Dave', 30),
+  new Transaction('Charlie', 'Dave', 30),
+  new Transaction('Eve', 'Frank', 20),
+  new Transaction('Grace', 'Heidi', 10),
+  new Transaction('Ivan', 'Judy', 40)
+];
 
 const BlockchainComponent: React.FC = () => {
   const [blockchain, setBlockchain] = useState<Blockchain | null>(null);
@@ -13,6 +23,8 @@ const BlockchainComponent: React.FC = () => {
   const [difficulty, setDifficulty] = useState<number>(2); // Default difficulty
   const [showWarning, setShowWarning] = useState<boolean>(false);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [mempool] = useState<Mempool>(new Mempool());
+  const [miner, setMiner] = useState<Miner | null>(null);  
 
   const handleDifficultyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
@@ -28,22 +40,26 @@ const BlockchainComponent: React.FC = () => {
     if (difficulty > 5 && !window.confirm('High difficulty will take longer time to generate blocks. Do you want to continue?')) {
       return;
     }
-    const newBlockchain = new Blockchain();
+    const newBlockchain = new Blockchain(difficulty);
     setBlockchain(newBlockchain);
+    setMiner(new Miner(mempool, newBlockchain));
     setBlockCount(newBlockchain.chain.length);
     setView('view');
   };
 
   const generateBlock = async () => {
-    if (blockchain) {
-      // getRandomCapital can be considered as a list transaction in a real-world blockchain
-      // the list of capital is mimic the mempool in a real-world blockchain
-      const newBlock = new Block(Date.now(), blockchain.getLatestBlock().hash, getRandomCapital());
+    if (blockchain && miner) {
+      const transaction = sampleTransactions[Math.floor(Math.random() * sampleTransactions.length)];
+      mempool.addTransaction(transaction);
+
       const startTime = Date.now();
-      newBlock.mineBlock(difficulty); // Mine the block with the specified difficulty
+      
+      // newBlock.mineBlock(difficulty); // Mine the block with the specified difficulty
+      miner.mineTransactions();
+      
       const endTime = Date.now();
       setElapsedTime((endTime - startTime) / 1000); // Calculate elapsed time in seconds
-      blockchain.addBlock(newBlock);
+      
       // Update the block count to trigger a re-render
       setBlockCount(blockchain.chain.length);
     }

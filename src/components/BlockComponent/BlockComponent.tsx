@@ -14,7 +14,31 @@ interface BlockProps {
 
 const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   const formattedTimestamp = new Date(block.timestamp).toLocaleString();
-  const backgroundColor = capitalColors[block.data] || '#FFFFFF'; // Default to white if not found
+  const backgroundColor = capitalColors[block.data instanceof Array ? block.data[0]?.fromAddress : ''] || '#FFFFFF'; // Default to white if not found
+
+  let formattedData: string | JSX.Element;
+
+  if (Array.isArray(block.data)) {
+    formattedData = (
+      <ul>
+        {block.data.map((transaction, idx) => {
+          const transactionTimestamp = new Date(transaction.timestamp).toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+          });
+          return (
+            <li key={idx}>
+              {transaction.fromAddress} : {transaction.toAddress} : {transaction.amount} USD : {transactionTimestamp}
+            </li>
+          );
+        })}
+      </ul>
+    );
+  } else {
+    formattedData = <p>{block.data}</p>;
+  }
 
   return (
     <div className={`block ${isValid ? 'valid' : 'invalid'}`} style={{ backgroundColor }}>
@@ -23,7 +47,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
       <p>Formatted time: {formattedTimestamp}</p>
       <p>Previous Hash: {truncateHash(block.previousHash)}</p>
       <p>Hash: {truncateHash(block.hash)}</p>
-      <p>Data: {block.data}</p>
+      <p>Data: {formattedData}</p>
     </div>
   );
 };
