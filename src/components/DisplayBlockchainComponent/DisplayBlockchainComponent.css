@@ -1,7 +1,3 @@
-.common-view {
-    margin-top: 20px; /* Consistent top margin for both views */
-  }
-  
 .blockchain-view-container {
     display: flex;
     justify-content: center;
