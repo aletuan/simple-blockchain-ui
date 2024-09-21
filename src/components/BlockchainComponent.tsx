@@ -36,12 +36,12 @@ const BlockchainComponent: React.FC = () => {
         <div>
           <h1>Simple Blockchain</h1>
           <p>Number of Blocks: {blockCount}</p>
+          <button onClick={generateBlock}>Generate New Block</button>
           <div id="blockchain">
             {blockchain?.chain.map((block, index) => (
               <BlockComponent key={index} block={block} index={index} isValid={blockchain.isChainValid()} />
             ))}
           </div>
-          <button onClick={generateBlock}>Generate New Block</button>
         </div>
       )}
     </div>
