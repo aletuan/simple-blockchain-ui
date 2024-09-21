@@ -15,7 +15,6 @@ const getRandomTimestamp = (): number => {
 
 const sampleTransactions: Transaction[] = [
   new Transaction('Charlie','Dave', 30),
-  new Transaction('Charlie', 'Dave', 30),
   new Transaction('Eve', 'Frank', 20),
   new Transaction('Grace', 'Heidi', 10),
   new Transaction('Ivan', 'Judy', 40)
@@ -59,7 +58,9 @@ const BlockchainComponent: React.FC = () => {
 
   const generateBlock = async () => {
     if (blockchain && miner) {
-      const transaction = sampleTransactions[Math.floor(Math.random() * sampleTransactions.length)];
+      const transactionIndex = Math.floor(Math.random() * sampleTransactions.length);
+      const transaction = sampleTransactions[transactionIndex];
+
       mempool.addTransaction(transaction);
 
       const startTime = Date.now();
@@ -72,6 +73,9 @@ const BlockchainComponent: React.FC = () => {
       
       // Update the block count to trigger a re-render
       setBlockCount(blockchain.chain.length);
+
+      // Remove the transaction from sampleTransactions
+      sampleTransactions.splice(transactionIndex, 1);      
     }
   };
 
