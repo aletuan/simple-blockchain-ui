@@ -61,10 +61,10 @@ const BlockchainComponent: React.FC = () => {
           <button className="create-button" onClick={createNewBlockchain}>Create New Blockchain</button>
         </div>
       ) : (
-        <div>
-          <h1>Simple Blockchain</h1>
-          <p>Number of Blocks: {blockCount}</p>
-          <button onClick={generateBlock}>Generate New Block</button>
+        <div className="blockchain-view">
+          <h1 className="blockchain-header">Simple Blockchain</h1>
+          <p className="block-count">Number of Blocks: {blockCount}</p>
+          <button className="generate-button" onClick={generateBlock}>Generate New Block</button>
           <div id="blockchain">
             {blockchain?.chain.slice().reverse().map((block, index) => (
               <BlockComponent key={index} block={block} index={blockchain.chain.length - 1 - index} isValid={blockchain.isChainValid()} />
