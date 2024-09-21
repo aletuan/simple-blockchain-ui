@@ -38,8 +38,8 @@ const BlockchainComponent: React.FC = () => {
           <p>Number of Blocks: {blockCount}</p>
           <button onClick={generateBlock}>Generate New Block</button>
           <div id="blockchain">
-            {blockchain?.chain.map((block, index) => (
-              <BlockComponent key={index} block={block} index={index} isValid={blockchain.isChainValid()} />
+            {blockchain?.chain.slice().reverse().map((block, index) => (
+              <BlockComponent key={index} block={block} index={blockchain.chain.length - 1 - index} isValid={blockchain.isChainValid()} />
             ))}
           </div>
         </div>
