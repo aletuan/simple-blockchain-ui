@@ -36,6 +36,8 @@ const BlockchainComponent: React.FC = () => {
 
   const generateBlock = async () => {
     if (blockchain) {
+      // getRandomCapital can be considered as a list transaction in a real-world blockchain
+      // the list of capital is mimic the mempool in a real-world blockchain
       const newBlock = new Block(Date.now(), blockchain.getLatestBlock().hash, getRandomCapital());
       const startTime = Date.now();
       newBlock.mineBlock(difficulty); // Mine the block with the specified difficulty
