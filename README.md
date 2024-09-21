@@ -4,12 +4,19 @@ This is a simple blockchain application built with React. The application allows
 
 ## Features
 
-- Create a new blockchain
+- Create a new blockchain with input of block mining difficulity
 - Generate new blocks
 - Display blocks with timestamp, previous hash, hash, and data (random capital city name)
 - Color each block based on the major color of the national flag of the country where the capital is located
 
-## Installation
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm or yarn
+
+### Installation
 
 1. Clone the repository:
    ```sh
@@ -29,8 +36,27 @@ This is a simple blockchain application built with React. The application allows
     npm start
     ```
 
-## Usage
+## Mining Process
 
-1. Open your browser and navigate to http://localhost:3000.
-2. Click on "Create New Blockchain" to initialize a new blockchain.
-3. Click on "Generate New Block" to add a new block to the blockchain. Each block will display a random capital city name and will be colored based on the major color of the national flag of the country where the capital is located.
+The mining process in this application involves generating a new block and adding it to the blockchain. Here is a detailed explanation of how the mining process works:
+
+1. Initiate Mining:
+
+- When the user clicks the "Generate New Block" button, the mining process starts.
+- The button is disabled and its label changes to "Generating..." to indicate that the mining process is in progress.
+
+2. Generate Block:
+
+- A new block is created with the current timestamp, the hash of the latest block, and a random capital.
+- The block is then mined with the specified difficulty. This involves finding a nonce value that makes the block's hash meet the difficulty criteria.
+
+3. Update Blockchain:
+
+- Once the block is successfully mined, it is added to the blockchain.
+- The elapsed time for mining the block is calculated and displayed.
+
+4. Re-enable Button:
+
+- After the block is added to the blockchain, the "Generate New Block" button is re-enabled and its label changes back to "Generate New Block".
+
+## Usage (TBD)
