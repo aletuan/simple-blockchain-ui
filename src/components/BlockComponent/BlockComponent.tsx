@@ -22,12 +22,12 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
     formattedData = (
       <ul>
         {block.data.map((transaction, idx) => {
-          const transactionTimestamp = new Date(transaction.timestamp).toLocaleTimeString('en-US', {
+          const transactionTimestamp = transaction.timestamp ? new Date(transaction.timestamp).toLocaleTimeString('en-US', {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
             hour12: false
-          });
+          }) : 'Invalid timestamp';
           return (
             <li key={idx}>
               {transaction.fromAddress} : {transaction.toAddress} : {transaction.amount} USD : {transactionTimestamp}

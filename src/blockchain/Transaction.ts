@@ -5,13 +5,12 @@ export class Transaction {
     fromAddress: string;
     toAddress: string;
     amount: number;
-    timestamp: number;
+    timestamp: number | undefined;
 
     constructor(fromAddress: string, toAddress: string, amount: number) {
         this.fromAddress = fromAddress;
         this.toAddress = toAddress;
         this.amount = amount;
-        this.timestamp = Date.now();
     }
 
     // Simulate generating a hash for this transaction (similar to a transaction ID)

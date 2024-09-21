@@ -24,6 +24,9 @@ export class Miner {
             newBlock.mineBlock(this.blockchain.difficulty);
             this.blockchain.addBlock(newBlock);
             console.log(`Block mined: ${newBlock.hash}`);
+
+            // After mining, clear the mempool
+            this.mempool.transactions = [];
         }
     }
 

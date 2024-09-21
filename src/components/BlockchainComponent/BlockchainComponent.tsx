@@ -7,6 +7,11 @@ import CreateBlockchainComponent from '../CreateBlockchainComponent';
 import DisplayBlockchainComponent from '../DisplayBlockchainComponent';
 import './BlockchainComponent.css';
 
+const getRandomTimestamp = (): number => {
+  const now = Date.now();
+  const randomOffset = Math.floor(Math.random() * 1000000000); // Random offset within a range
+  return now - randomOffset;
+};
 
 const sampleTransactions: Transaction[] = [
   new Transaction('Charlie','Dave', 30),
@@ -15,6 +20,11 @@ const sampleTransactions: Transaction[] = [
   new Transaction('Grace', 'Heidi', 10),
   new Transaction('Ivan', 'Judy', 40)
 ];
+
+// Manually set random timestamps for sample transactions
+sampleTransactions.forEach(transaction => {
+  transaction.timestamp = getRandomTimestamp();
+});
 
 const BlockchainComponent: React.FC = () => {
   const [blockchain, setBlockchain] = useState<Blockchain | null>(null);
