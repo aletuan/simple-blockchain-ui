@@ -2,7 +2,6 @@ import React from 'react';
 import { Block } from '../../blockchain/Block';
 
 import { truncateHash } from '../../utils/truncateHash';
-import { capitalColors } from '../../utils/capitalColors';
 
 import './BlockComponent.css';
 
@@ -14,7 +13,7 @@ interface BlockProps {
 
 const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   const formattedTimestamp = new Date(block.timestamp).toLocaleString();
-  const backgroundColor = capitalColors[block.data instanceof Array ? block.data[0]?.fromAddress : ''] || '#FFFFFF'; // Default to white if not found
+  const backgroundColor = '#FFFFFF';
 
   let formattedData: string | JSX.Element;
 

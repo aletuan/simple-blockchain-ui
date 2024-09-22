@@ -47,7 +47,7 @@ The mining process in this application involves generating a new block and addin
 
 2. Generate Block:
 
-- A new block is created with the current timestamp, the hash of the latest block, and a random capital.
+- A new block is created with the current timestamp and the hash of the latest block.
 - The block is then mined with the specified difficulty. This involves finding a nonce value that makes the block's hash meet the difficulty criteria.
 
 3. Update Blockchain:
