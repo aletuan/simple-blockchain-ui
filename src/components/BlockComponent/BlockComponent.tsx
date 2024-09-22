@@ -18,16 +18,29 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
 
   if (Array.isArray(block.data)) {
     formattedData = (
-      <ul>
+      <table>
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Amount</th>
+            <th>Timestamp</th>
+          </tr>
+      </thead>
+      <tbody>
         {block.data.map((transaction, idx) => {
           const transactionTimestamp = transaction.timestamp ? new Date(transaction.timestamp).toLocaleString() : 'Invalid timestamp';
           return (
-            <li key={idx}>
-              {transaction.fromAddress} : {transaction.toAddress} : {transaction.amount} USD : {transactionTimestamp}
-            </li>
+            <tr key={idx}>
+              <td>{transaction.fromAddress}</td>
+              <td>{transaction.toAddress}</td>
+              <td>{transaction.amount}</td>
+              <td>{transactionTimestamp}</td>
+            </tr>
           );
         })}
-      </ul>
+        </tbody>
+      </table>
     );
   } else {
     formattedData = <p>{block.data}</p>;
@@ -40,7 +53,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
       <p>Time: {formattedTimestamp}</p>
       <p>Previous Hash: {truncateHash(block.previousHash)}</p>
       <p>Hash: {truncateHash(block.hash)}</p>
-      <p>Data: {formattedData}</p>
+      <p>Transaction: {formattedData}</p>
     </div>
   );
 };
