@@ -36,7 +36,7 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
         <div className="status-bar">
           <p className="elapsed-time">Mining Time: {miningTime} seconds with difficulty level {difficulty}</p>
           {noMoreTransactions && (
-            <p className="no-more-transactions">No more transactions available in the sample data.</p>
+            <p className="no-more-transactions">No transactions available in the sample data</p>
           )}
         </div>
         <button

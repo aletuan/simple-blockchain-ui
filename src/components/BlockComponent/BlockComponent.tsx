@@ -24,7 +24,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
             <th>From</th>
             <th>To</th>
             <th>Data</th>
-            <th>Transaction Time</th>
+            <th>Time</th>
           </tr>
       </thead>
       <tbody>
