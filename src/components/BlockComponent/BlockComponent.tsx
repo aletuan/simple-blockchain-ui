@@ -23,7 +23,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
           <tr>
             <th>From</th>
             <th>To</th>
-            <th>Amount</th>
+            <th>Data</th>
             <th>Transaction Time</th>
           </tr>
       </thead>
