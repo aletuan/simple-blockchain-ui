@@ -13,7 +13,6 @@ interface BlockProps {
 
 const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   const formattedTimestamp = new Date(block.timestamp).toLocaleString();
-  const backgroundColor = '#FFFFFF';
 
   let formattedData: string | JSX.Element;
 
@@ -40,7 +39,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   }
 
   return (
-    <div className={`block ${isValid ? 'valid' : 'invalid'}`} style={{ backgroundColor }}>
+    <div className={`block ${isValid ? 'valid' : 'invalid'}`}>
       <p><strong>Block {index}</strong></p>
       <p>Timestamp: {block.timestamp}</p>
       <p>Time: {formattedTimestamp}</p>
