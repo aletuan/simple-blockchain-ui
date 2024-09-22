@@ -24,7 +24,7 @@ const BlockchainComponent: React.FC = () => {
   const [view, setView] = useState<'create' | 'view'>('create');
   const [difficulty, setDifficulty] = useState<number>(2);
   const [showWarning, setShowWarning] = useState<boolean>(false);
-  const [elapsedTime, setElapsedTime] = useState<number>(0);
+  const [miningTime, setMiningTime] = useState<number>(0);
   const [noMoreTransactions, setNoMoreTransactions] = useState<boolean>(false);
   const [mempool] = useState<Mempool>(new Mempool());
   const [miner, setMiner] = useState<Miner | null>(null); 
@@ -62,11 +62,8 @@ const BlockchainComponent: React.FC = () => {
       if (transaction) {      
         mempool.addTransaction(transaction);
 
-        // Mining pending transaction
-        const startTime = Date.now();        
-        miner.minePendingTransactions();        
-        const endTime = Date.now();
-        setElapsedTime((endTime - startTime) / 1000);
+        // Mining pending transaction and set the mining time
+        setMiningTime(miner.minePendingTransactions());
         
         // Remove the transaction from sampleTransactions
         sampleTransactions.splice(transactionIndex, 1);
@@ -92,8 +89,9 @@ const BlockchainComponent: React.FC = () => {
         blockchain && (
           <DisplayBlockchainComponent
             blockchain={blockchain}
-            elapsedTime={elapsedTime}
+            miningTime={miningTime}
             noMoreTransactions={noMoreTransactions}
+            difficulty={difficulty}
             generateBlock={generateBlock}
           />
         )

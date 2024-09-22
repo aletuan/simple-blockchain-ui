@@ -17,7 +17,8 @@ export class Miner {
     }
 
     // "Mine" transactions by taking them out of the mempool and adding them to a block (in a real scenario)
-    minePendingTransactions() {
+    minePendingTransactions(): number {
+        const startTime = Date.now();
         if (this.mempool.isEmpty()) {
             console.log('No transactions to mine.');
         } else {;
@@ -37,6 +38,9 @@ export class Miner {
             // Clear the mined transactions from the mempool
             this.mempool.clearMinedTransactions(newBlock.data);
         }
+
+        const endTime = Date.now();
+        return (endTime - startTime) / 1000;
     }   
 
     private createBlock(transactions: Transaction[]): Block {

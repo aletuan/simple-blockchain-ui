@@ -5,15 +5,17 @@ import './DisplayBlockchainComponent.css';
 
 interface DisplayBlockchainProps {
   blockchain: Blockchain;
-  elapsedTime: number;
-  noMoreTransactions: boolean
+  miningTime: number;
+  noMoreTransactions: boolean,
+  difficulty: number;
   generateBlock: () => Promise<void>;
 }
 
 const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   blockchain,
-  elapsedTime,
+  miningTime,
   noMoreTransactions,
+  difficulty,
   generateBlock
 }) => {
   const [isGenerating, setIsGenerating] = useState<boolean>(false); 
@@ -32,7 +34,7 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
         <h1 className="blockchain-header">Simple Blockchain</h1>
         <p className="block-count">Number of Blocks: {blockchain.chain.length}</p>
         <div className="status-bar">
-          <p className="elapsed-time">Elapsed Time: {elapsedTime} seconds</p>
+          <p className="elapsed-time">Mining Time: {miningTime} seconds with difficulty level {difficulty}</p>
           {noMoreTransactions && (
             <p className="no-more-transactions">No more transactions available in the sample data.</p>
           )}
