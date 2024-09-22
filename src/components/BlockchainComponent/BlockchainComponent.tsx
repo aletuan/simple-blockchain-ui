@@ -22,7 +22,6 @@ const sampleTransactions: Transaction[] = [
 const BlockchainComponent: React.FC = () => {
   const [blockchain, setBlockchain] = useState<Blockchain | null>(null);
   const [view, setView] = useState<'create' | 'view'>('create');
-  const [blockCount, setBlockCount] = useState<number>(1);
   const [difficulty, setDifficulty] = useState<number>(2);
   const [showWarning, setShowWarning] = useState<boolean>(false);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
@@ -51,7 +50,6 @@ const BlockchainComponent: React.FC = () => {
     setBlockchain(blockchain);
     setMiner(miner);
 
-    setBlockCount(blockchain.chain.length);
     setView('view');
   };
 
@@ -95,7 +93,6 @@ const BlockchainComponent: React.FC = () => {
         blockchain && (
           <DisplayBlockchainComponent
             blockchain={blockchain}
-            blockCount={blockCount}
             elapsedTime={elapsedTime}
             noMoreTransactions={noMoreTransactions}
             generateBlock={generateBlock}

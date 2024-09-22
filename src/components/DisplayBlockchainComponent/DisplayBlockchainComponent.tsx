@@ -5,7 +5,6 @@ import './DisplayBlockchainComponent.css';
 
 interface DisplayBlockchainProps {
   blockchain: Blockchain;
-  blockCount: number;
   elapsedTime: number;
   noMoreTransactions: boolean
   generateBlock: () => Promise<void>;
@@ -13,7 +12,6 @@ interface DisplayBlockchainProps {
 
 const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   blockchain,
-  blockCount,
   elapsedTime,
   noMoreTransactions,
   generateBlock
@@ -32,7 +30,7 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
     <div className="blockchain-view-container">
       <div className="blockchain-view">
         <h1 className="blockchain-header">Simple Blockchain</h1>
-        <p className="block-count">Number of Blocks: {blockCount}</p>
+        <p className="block-count">Number of Blocks: {blockchain.chain.length}</p>
         <div className="status-bar">
           <p className="elapsed-time">Elapsed Time: {elapsedTime} seconds</p>
           {noMoreTransactions && (
