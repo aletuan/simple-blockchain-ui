@@ -24,12 +24,27 @@ export class Mempool {
         if (transaction.amount <= 0) {
             return false;
         }
+
+        if (!transaction.fromAddress || !transaction.toAddress) {
+            return false
+        }
+
         // Further validation logic can go here (e.g., signature validation, balance check)
         return true;
     }
 
-    // Get all transactions in the mempool
-    getTransactions(): Transaction[] {
+    // Get all pending transactions (without removing them)
+    getPendingTransactions(): Transaction[] {
         return this.transactions;
+    }
+    
+    // Remove transactions that have been mined
+    clearMinedTransactions(minedTransactions: Transaction[]) {
+        this.transactions = this.transactions.filter(tx => !minedTransactions.includes(tx));
+    }
+    
+    // Check if the mempool is empty
+    isEmpty(): boolean {
+        return this.transactions.length === 0;
     }
 }

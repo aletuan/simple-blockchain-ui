@@ -5,10 +5,10 @@ export class Block {
   timestamp: number;
   previousHash: string;
   hash: string;
-  data: Transaction[] | string;
+  data: Transaction[];
   nonce: number;
 
-  constructor(timestamp: number, previousHash: string, data: Transaction[] | string) {
+  constructor(timestamp: number, previousHash: string, data: Transaction[]) {
     this.timestamp = timestamp;
     this.previousHash = previousHash;
     this.data = data;
