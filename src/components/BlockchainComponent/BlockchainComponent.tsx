@@ -33,7 +33,8 @@ const BlockchainComponent: React.FC = () => {
   const [showWarning, setShowWarning] = useState<boolean>(false);
   const [elapsedTime, setElapsedTime] = useState<number>(0);
   const [mempool] = useState<Mempool>(new Mempool());
-  const [miner, setMiner] = useState<Miner | null>(null);  
+  const [miner, setMiner] = useState<Miner | null>(null); 
+  const [noMoreTransactions, setNoMoreTransactions] = useState<boolean>(false);
 
   const handleDifficultyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
@@ -61,21 +62,29 @@ const BlockchainComponent: React.FC = () => {
       const transactionIndex = Math.floor(Math.random() * sampleTransactions.length);
       const transaction = sampleTransactions[transactionIndex];
 
-      mempool.addTransaction(transaction);
+      // Check if the transaction is not null before adding to the mempool
+      if (transaction) {      
+        mempool.addTransaction(transaction);
 
-      const startTime = Date.now();
-      
-      // newBlock.mineBlock(difficulty); // Mine the block with the specified difficulty
-      miner.mineTransactions();
-      
-      const endTime = Date.now();
-      setElapsedTime((endTime - startTime) / 1000); // Calculate elapsed time in seconds
-      
-      // Update the block count to trigger a re-render
-      setBlockCount(blockchain.chain.length);
+        const startTime = Date.now();
+        
+        // newBlock.mineBlock(difficulty); // Mine the block with the specified difficulty
+        miner.mineTransactions();
+        
+        const endTime = Date.now();
+        setElapsedTime((endTime - startTime) / 1000); // Calculate elapsed time in seconds
+        
+        // Update the block count to trigger a re-render
+        setBlockCount(blockchain.chain.length);
 
-      // Remove the transaction from sampleTransactions
-      sampleTransactions.splice(transactionIndex, 1);      
+        // Remove the transaction from sampleTransactions
+        sampleTransactions.splice(transactionIndex, 1);
+
+        // If no more transactions left, set the noMoreTransactions state
+        if (sampleTransactions.length === 0) {
+          setNoMoreTransactions(true);
+        }        
+      }     
     }
   };
 
@@ -94,10 +103,11 @@ const BlockchainComponent: React.FC = () => {
             blockchain={blockchain}
             blockCount={blockCount}
             elapsedTime={elapsedTime}
+            noMoreTransactions={noMoreTransactions}
             generateBlock={generateBlock}
           />
         )
-      )}
+      )}  
     </div>
   );
 };
