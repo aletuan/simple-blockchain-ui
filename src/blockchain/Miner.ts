@@ -1,30 +1,43 @@
 import { Block } from './Block';
 import { Blockchain } from './Blockchain';
+import { Mempool } from './Mempool';
 import { Transaction } from './Transaction';
+import { getRandomTimestamp } from '../utils/getRandomTimestamp';
 
 // Simulate the miner
 export class Miner {
     private blockchain: Blockchain;
-    public miningRewardAddress: string;
+    private miningRewardAddress: string;
+    private mempool: Mempool
 
-    constructor(blockchain: Blockchain, miningRewardAddress: string) {
+    constructor(blockchain: Blockchain, mempool: Mempool, miningRewardAddress: string) {
         this.blockchain = blockchain;
+        this.mempool = mempool;
         this.miningRewardAddress = miningRewardAddress;
     }
 
     // "Mine" transactions by taking them out of the mempool and adding them to a block (in a real scenario)
-    mineTransactions() {
-        const transactionsToMine = this.blockchain.mempool.getPendingTransactions();
-        if (transactionsToMine.length === 0) {
+    minePendingTransactions() {
+        if (this.mempool.isEmpty()) {
             console.log('No transactions to mine.');
-        } else {
-            console.log(`Mining ${transactionsToMine.length} transactions...`);
+        } else {;
+            const rewardTx = new Transaction("0x", this.miningRewardAddress, this.blockchain.miningReward, getRandomTimestamp());
+            this.mempool.addTransaction(rewardTx); // Add mining reward as a transaction            
+            const transactionsToMine = this.mempool.getPendingTransactions();
+
+            // Start mining a block
+            console.log(`Mining ${transactionsToMine.length} transactions...`)
             const newBlock = this.createBlock(transactionsToMine);
             newBlock.mineBlock(this.blockchain.difficulty);
-            this.blockchain.minePendingTransactions(this.miningRewardAddress);
             console.log(`Block mined: ${newBlock.hash}`);
+            
+            // Add new mined block
+            this.blockchain.chain.push(newBlock);
+
+            // Clear the mined transactions from the mempool
+            this.mempool.clearMinedTransactions(newBlock.data);
         }
-    }
+    }   
 
     private createBlock(transactions: Transaction[]): Block {
         const previousHash = this.blockchain.getLatestBlock().hash;

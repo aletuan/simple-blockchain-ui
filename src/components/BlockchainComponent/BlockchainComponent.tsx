@@ -44,8 +44,8 @@ const BlockchainComponent: React.FC = () => {
       return;
     }
 
-    const blockchain = new Blockchain(difficulty, mempool);
-    const miner = new Miner(blockchain, "[miner]");
+    const blockchain = new Blockchain(difficulty);
+    const miner = new Miner(blockchain, mempool, "[miner]");
 
     setBlockchain(blockchain);
     setMiner(miner);
@@ -62,10 +62,9 @@ const BlockchainComponent: React.FC = () => {
       if (transaction) {      
         mempool.addTransaction(transaction);
 
-        const startTime = Date.now();
-        
-        miner.mineTransactions();
-        
+        // Mining pending transaction
+        const startTime = Date.now();        
+        miner.minePendingTransactions();        
         const endTime = Date.now();
         setElapsedTime((endTime - startTime) / 1000);
         
