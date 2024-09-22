@@ -24,7 +24,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
             <th>From</th>
             <th>To</th>
             <th>Amount</th>
-            <th>Timestamp</th>
+            <th>Transaction Time</th>
           </tr>
       </thead>
       <tbody>
@@ -49,11 +49,10 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   return (
     <div className={`block ${isValid ? 'valid' : 'invalid'}`}>
       <p><strong>Block {index}</strong></p>
-      <p>Timestamp: {block.timestamp}</p>
-      <p>Time: {formattedTimestamp}</p>
+      <p>Block Time: {formattedTimestamp}</p>
       <p>Previous Hash: {truncateHash(block.previousHash)}</p>
       <p>Hash: {truncateHash(block.hash)}</p>
-      <p>Transaction: {formattedData}</p>
+      <p>Transaction (Tnx) {formattedData}</p>
     </div>
   );
 };
