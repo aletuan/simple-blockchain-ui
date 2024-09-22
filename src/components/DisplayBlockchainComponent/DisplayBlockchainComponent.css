@@ -70,6 +70,7 @@
   
   .blockchain-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
+    grid-template-columns: repeat(2, 1fr); /* Ensure only 2 columns */
     gap: 10px; /* Add space between blocks */
   }
+  
