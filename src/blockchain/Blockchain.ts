@@ -16,7 +16,7 @@ export class Blockchain {
 
   createGenesisBlock(): Block {
     const genesisTransaction = new Transaction("0x", "0x", 1000, getRandomTimestamp());
-    return new Block(Date.now(), '0', [genesisTransaction]);
+    return new Block(Date.now(), 'null', [genesisTransaction]);
   }
 
   getLatestBlock(): Block {

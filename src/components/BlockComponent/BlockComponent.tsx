@@ -2,6 +2,7 @@ import React from 'react';
 import { Block } from '../../blockchain/Block';
 
 import { truncateHash } from '../../utils/truncateHash';
+import { generateColorFromHash } from '../../utils/generateColorFromHash';
 
 import './BlockComponent.css';
 
@@ -50,8 +51,8 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
     <div className={`block ${isValid ? 'valid' : 'invalid'}`}>
       <p><strong>Block {index}</strong></p>
       <p>Block Time: {formattedTimestamp}</p>
-      <p>Previous Hash: {truncateHash(block.previousHash)}</p>
-      <p>Hash: {truncateHash(block.hash)}</p>
+      <p>Hash: <span style={{ color: generateColorFromHash(block.hash) }}>{truncateHash(block.hash)}</span></p>
+      <p>Previous Hash: <span style={{ color: generateColorFromHash(block.previousHash) }}>{truncateHash(block.previousHash)}</span></p>
       <p>Transaction (Tnx) {formattedData}</p>
     </div>
   );
