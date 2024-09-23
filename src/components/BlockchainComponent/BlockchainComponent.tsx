@@ -1,33 +1,19 @@
 import React, { useState } from 'react';
 
 import { Blockchain } from '../../blockchain/Blockchain';
-import { Mempool } from '../../blockchain/Mempool';
-import { Miner } from '../../blockchain/Miner';
-import { Transaction } from '../../blockchain/Transaction';
 
 import CreateBlockchainComponent from '../CreateBlockchainComponent';
 import DisplayBlockchainComponent from '../DisplayBlockchainComponent';
 
-import { getRandomTimestamp } from '../../utils/getRandomTimestamp';
 
 import './BlockchainComponent.css';
 
-const sampleTransactions: Transaction[] = [
-  new Transaction('Charlie','Dave', 30, getRandomTimestamp()),
-  new Transaction('Eve', 'Frank', 20, getRandomTimestamp()),
-  new Transaction('Grace', 'Heidi', 10, getRandomTimestamp()),
-  new Transaction('Ivan', 'Judy', 40, getRandomTimestamp())
-];
 
 const BlockchainComponent: React.FC = () => {
   const [blockchain, setBlockchain] = useState<Blockchain | null>(null);
   const [view, setView] = useState<'create' | 'view'>('create');
   const [difficulty, setDifficulty] = useState<number>(2);
   const [showWarning, setShowWarning] = useState<boolean>(false);
-  const [miningTime, setMiningTime] = useState<number>(0);
-  const [noMoreTransactions, setNoMoreTransactions] = useState<boolean>(false);
-  const [mempool] = useState<Mempool>(new Mempool());
-  const [miner, setMiner] = useState<Miner | null>(null); 
 
   const handleDifficultyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(event.target.value, 10);
@@ -45,35 +31,9 @@ const BlockchainComponent: React.FC = () => {
     }
 
     const blockchain = new Blockchain(difficulty);
-    const miner = new Miner(blockchain, mempool, "[miner]");
-
     setBlockchain(blockchain);
-    setMiner(miner);
 
     setView('view');
-  };
-
-  const generateBlock = async () => {
-    if (blockchain && miner) {
-      const transactionIndex = Math.floor(Math.random() * sampleTransactions.length);
-      const transaction = sampleTransactions[transactionIndex];
-
-      // Check if the transaction is not null before adding to the mempool
-      if (transaction) {      
-        mempool.addTransaction(transaction);
-
-        // Mining pending transaction and set the mining time
-        setMiningTime(miner.minePendingTransactions());
-        
-        // Remove the transaction from sampleTransactions
-        sampleTransactions.splice(transactionIndex, 1);
-
-        // If no more transactions left, set the noMoreTransactions state
-        if (sampleTransactions.length === 0) {
-          setNoMoreTransactions(true);
-        }        
-      }     
-    }
   };
 
   return (
@@ -89,10 +49,7 @@ const BlockchainComponent: React.FC = () => {
         blockchain && (
           <DisplayBlockchainComponent
             blockchain={blockchain}
-            miningTime={miningTime}
-            noMoreTransactions={noMoreTransactions}
             difficulty={difficulty}
-            generateBlock={generateBlock}
           />
         )
       )}  

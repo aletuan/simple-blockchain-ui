@@ -2,16 +2,16 @@ import { Transaction } from './Transaction';
 
 // Mempool class for storing transactions
 export class Mempool {
-    transactions: Transaction[];
+    pendingTransactions: Transaction[];
 
     constructor() {
-        this.transactions = [];
+        this.pendingTransactions = [];
     }
 
-    // Add a transaction to the mempool
+    // Add a transaction to the mempool (pending transactions)
     addTransaction(transaction: Transaction) {
         if (this.validateTransaction(transaction)) {
-            this.transactions.push(transaction);
+            this.pendingTransactions.push(transaction);
             console.log(`Transaction added: ${transaction.calculateHash()}`);
         } else {
             console.log('Transaction is invalid.');
@@ -35,16 +35,16 @@ export class Mempool {
 
     // Get all pending transactions (without removing them)
     getPendingTransactions(): Transaction[] {
-        return this.transactions;
+        return this.pendingTransactions;
     }
     
     // Remove transactions that have been mined
     clearMinedTransactions(minedTransactions: Transaction[]) {
-        this.transactions = this.transactions.filter(tx => !minedTransactions.includes(tx));
+        this.pendingTransactions = this.pendingTransactions.filter(tx => !minedTransactions.includes(tx));
     }
     
     // Check if the mempool is empty
     isEmpty(): boolean {
-        return this.transactions.length === 0;
+        return this.pendingTransactions.length === 0;
     }
 }
