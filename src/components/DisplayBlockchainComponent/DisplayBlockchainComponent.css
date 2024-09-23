@@ -25,6 +25,7 @@
   }
   
   .block-count,
+  .transaction-count,
   .elapsed-time {
     font-size: 1.2em;
     margin-bottom: 20px;
