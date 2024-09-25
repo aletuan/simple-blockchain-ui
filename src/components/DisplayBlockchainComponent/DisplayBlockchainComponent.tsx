@@ -26,12 +26,10 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   const [remainingTransactions, setRemainingTransactions] = useState<number>(transactionService.getTransactionCount());  
 
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const [noMoreTransactions, setNoMoreTransactions] = useState<boolean>(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingTransactions(transactionService.getTransactionCount());
-      setNoMoreTransactions(transactionService.getTransactionCount() === 0);
     }, 1000); // Update remaining transactions every second
 
     return () => clearInterval(interval);
@@ -46,12 +44,7 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
         mempool.addTransaction(pendingTransaction);
 
         // Mining pending transaction and set the mining time
-        setMiningTime(miner.minePendingTransactions());
-        
-        // If no more transactions left, set the noMoreTransactions state
-        if (transactionService.isTransactionNotAvailable()) {
-          setNoMoreTransactions(true);
-        }        
+        setMiningTime(miner.minePendingTransactions());        
       }     
     }
   };  
@@ -60,7 +53,9 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
     setIsGenerating(true);
     setTimeout(async () => {
         await generateBlock();
-        setIsGenerating(false);
+        setIsGenerating(false);        
+        // Update again the remaining transaction in the servie
+        setRemainingTransactions(transactionService.getTransactionCount());
       }, 0);
   };  
 
@@ -72,14 +67,14 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
         <p className="transaction-count">Remaining Transactions: {remainingTransactions}</p>        
         <div className="status-bar">
           <p className="elapsed-time">Mining Time: {miningTime} seconds with difficulty level {difficulty}</p>
-          {noMoreTransactions && (
+          {remainingTransactions === 0 && (
             <p className="no-more-transactions">No transactions available in the sample data</p>
           )}
         </div>
         <button
           className="generate-button"
           onClick={handleGenerateBlock}
-          disabled={isGenerating || noMoreTransactions} // Disable button when no more transactions
+          disabled={isGenerating || remainingTransactions === 0} // Disable button when no more transactions
         >
           {isGenerating ? 'Generating...' : 'Generate New Block'}
         </button>             
