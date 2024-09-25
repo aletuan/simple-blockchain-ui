@@ -1,51 +1,54 @@
 .create-blockchain {
-    max-width: 400px;    
-    margin: 0 auto;
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .input-group {
-    margin-bottom: 15px;
-  }
-  
-  .input-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .input-group input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .warning {
-    color: red;
-    margin-bottom: 15px;
-  }
-  
-  .create-button {
-    width: 100%;
-    max-width: 200px; /* Set a maximum width */
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 0 auto; /* Center the button */
-    display: block; /* Ensure the button is a block element */
-  }
-  
-  .create-button:hover {
-    background-color: #0056b3;
-  }
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.warning {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.create-button {
+  width: 100%;
+  max-width: 200px;
+  /* Set a maximum width */
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 auto;
+  /* Center the button */
+  display: block;
+  /* Ensure the button is a block element */
+}
+
+.create-button:hover {
+  background-color: #0056b3;
+}
