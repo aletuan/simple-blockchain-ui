@@ -13,19 +13,20 @@ import './DisplayBlockchainComponent.css';
 interface DisplayBlockchainProps {
   blockchain: Blockchain;
   difficulty: number;
+  intervalTime: number;
 }
 
 const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   blockchain,
-  difficulty
+  difficulty,
+  intervalTime
 }) => {
 
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const transactionServiceRef = useRef<TransactionService | null>(null);
 
   if (!transactionServiceRef.current) {
-    // Generate new transaction every 6 seconds
-    transactionServiceRef.current = new TransactionService(1000);
+    transactionServiceRef.current = new TransactionService(intervalTime);
   }
 
   const [mempool] = useState<Mempool>(new Mempool());

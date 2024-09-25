@@ -13,6 +13,7 @@ const BlockchainComponent: React.FC = () => {
   const [blockchain, setBlockchain] = useState<Blockchain | null>(null);
   const [view, setView] = useState<'create' | 'view'>('create');
   const [difficulty, setDifficulty] = useState<number>(2);
+  const [intervalTime, setIntervalTime] = useState<number>(1000);
   const [showWarning, setShowWarning] = useState<boolean>(false);
 
   const handleDifficultyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +25,11 @@ const BlockchainComponent: React.FC = () => {
       setShowWarning(false);
     }
   };
+
+  const handleIntervalChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+    setIntervalTime(value);
+  }
 
   const createNewBlockchain = () => {
     if (difficulty > 5 && !window.confirm('High difficulty will take longer time to generate blocks. Do you want to continue?')) {
@@ -42,7 +48,9 @@ const BlockchainComponent: React.FC = () => {
         <CreateBlockchainComponent
           difficulty={difficulty}
           showWarning={showWarning}
+          intervalTime={intervalTime}
           handleDifficultyChange={handleDifficultyChange}
+          handleIntervalChange={handleIntervalChange}
           createNewBlockchain={createNewBlockchain}
         />
       ) : (
@@ -50,6 +58,7 @@ const BlockchainComponent: React.FC = () => {
           <DisplayBlockchainComponent
             blockchain={blockchain}
             difficulty={difficulty}
+            intervalTime={intervalTime}
           />
         )
       )}  
