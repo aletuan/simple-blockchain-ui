@@ -3,11 +3,11 @@ import { Transaction } from "../blockchain/Transaction";
 export class TransactionService {
     private transactions: Transaction[] = [];
 
-    constructor() {
-        this.autoGenerateTransaction();
+    constructor(intervalTime: number = 1000) {
+        this.autoGenerateTransaction(intervalTime);
     }
 
-    private autoGenerateTransaction() {
+    private autoGenerateTransaction(intervalTime: number) {
         setInterval(() => {
         const newTransaction = new Transaction(
             `User${Math.floor(Math.random() * 100)}`,
@@ -16,7 +16,7 @@ export class TransactionService {
             Date.now()
         );
         this.transactions.push(newTransaction);
-        }, 6000);
+        }, intervalTime);
     }
 
     getTransactions(): Transaction[] {

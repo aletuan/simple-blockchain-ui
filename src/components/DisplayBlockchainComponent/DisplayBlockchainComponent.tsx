@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Blockchain } from '../../blockchain/Blockchain';
 import BlockComponent from '../BlockComponent';
 import { Mempool } from '../../blockchain/Mempool';
@@ -19,18 +19,25 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   blockchain,
   difficulty
 }) => {
+
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const transactionServiceRef = useRef<TransactionService | null>(null);
+
+  if (!transactionServiceRef.current) {
+    // Generate new transaction every 6 seconds
+    transactionServiceRef.current = new TransactionService(1000);
+  }
+
   const [mempool] = useState<Mempool>(new Mempool());
   const [miningTime, setMiningTime] = useState<number>(0);
   const miner = new Miner(blockchain, mempool, "[miner]");
-  const [transactionService] = useState(new TransactionService());
-  const [remainingTransactions, setRemainingTransactions] = useState<number>(transactionService.getTransactionCount());  
-
-  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const transactionService = transactionServiceRef.current;
+  const [remainingTransactions, setRemainingTransactions] = useState<number>(transactionService.getTransactionCount());    
 
   useEffect(() => {
     const interval = setInterval(() => {
       setRemainingTransactions(transactionService.getTransactionCount());
-    }, 1000); // Update remaining transactions every second
+    }, 1000);
 
     return () => clearInterval(interval);
   }, [transactionService]);  
@@ -54,7 +61,6 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
     setTimeout(async () => {
         await generateBlock();
         setIsGenerating(false);        
-        // Update again the remaining transaction in the servie
         setRemainingTransactions(transactionService.getTransactionCount());
       }, 0);
   };  
