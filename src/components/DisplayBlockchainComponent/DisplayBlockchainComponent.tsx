@@ -84,7 +84,8 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
           disabled={isGenerating || remainingTransactions === 0} // Disable button when no more transactions
         >
           {isGenerating ? 'Generating...' : 'Generate New Block'}
-        </button>             
+        </button>
+        {/* TODO - Display pagination */}
         <div className="blockchain-list">
           {blockchain.chain.slice().reverse().map((block, index) => (
             <BlockComponent key={index} block={block} index={blockchain.chain.length - 1 - index} isValid={blockchain.isChainValid()} />

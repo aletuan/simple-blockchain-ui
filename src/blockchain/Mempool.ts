@@ -17,7 +17,8 @@ export class Mempool {
         })
     }
 
-    // Simulate transaction validation (e.g., signature check, sufficient balance, etc.)
+    // TODO: Checking sufficient balance token in the addresss
+    // TODO: Checking the signature of the transaction
     validateTransaction(transaction: Transaction): boolean {
         // For simplicity, assume all transactions are valid if amount is greater than 0
         if (transaction.amount <= 0) {

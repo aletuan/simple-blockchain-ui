@@ -29,6 +29,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
           </tr>
       </thead>
       <tbody>
+        {/* TODO: Adding link to address and to address, each address will get air-drop 1000 token as incentive */}
         {block.data.map((transaction, idx) => {
           const transactionTimestamp = transaction.timestamp ? new Date(transaction.timestamp).toLocaleString() : 'Invalid timestamp';
           return (
