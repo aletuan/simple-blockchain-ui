@@ -21,7 +21,6 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   difficulty,
   intervalTime
 }) => {
-
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
   const transactionServiceRef = useRef<TransactionService | null>(null);
 
@@ -33,7 +32,24 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   const [miningTime, setMiningTime] = useState<number>(0);
   const miner = new Miner(blockchain, mempool, "[miner]");
   const transactionService = transactionServiceRef.current;
-  const [remainingTransactions, setRemainingTransactions] = useState<number>(transactionService.getTransactionCount());    
+  const [remainingTransactions, setRemainingTransactions] = useState<number>(transactionService.getTransactionCount());
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const blocksPerPage = 4;
+
+  // Calculate the total number of pages
+  const totalPages = Math.ceil(blockchain.chain.length / blocksPerPage);
+
+  // Get the blocks for the current page
+  const currentBlocks = blockchain.chain.slice(
+    (currentPage - 1) * blocksPerPage,
+    currentPage * blocksPerPage
+  );
+
+  // Handle page change
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -78,6 +94,7 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
             <p className="no-more-transactions">No transactions available in the sample data</p>
           )}
         </div>
+        
         <button
           className="generate-button"
           onClick={handleGenerateBlock}
@@ -85,11 +102,27 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
         >
           {isGenerating ? 'Generating...' : 'Generate New Block'}
         </button>
-        {/* TODO - Display pagination */}
-        <div className="blockchain-list">
-          {blockchain.chain.slice().reverse().map((block, index) => (
-            <BlockComponent key={index} block={block} index={blockchain.chain.length - 1 - index} isValid={blockchain.isChainValid()} />
-          ))}
+        
+        <div className="pagination">
+          <div className="pagination-control">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                disabled={currentPage === index + 1}
+                className="pagination-button"
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        
+          <div className="blockchain-list">
+            {currentBlocks.map((block, index) => {
+              const currentIndex = (currentPage - 1) * blocksPerPage + index
+              return <BlockComponent key={currentIndex} block={block} index={currentIndex} isValid={blockchain.isChainValid()} />
+            })}
+          </div>          
         </div>
       </div>
     </div>
