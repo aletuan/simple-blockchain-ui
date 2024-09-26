@@ -31,13 +31,14 @@ export class TransactionService {
         return this.transactions.length === 0;
     }
 
-    miningTransaction(): Transaction | null {
-        if (this.transactions.length === 0) {
-          return null;
-        }
-        const randomIndex = Math.floor(Math.random() * this.transactions.length);
-        const transaction = this.transactions[randomIndex];
-        this.transactions.splice(randomIndex, 1); // Remove the transaction from the list
-        return transaction;
+    miningTransactions(): Transaction[]{
+        const numberOfTransactions = Math.floor(Math.random() * this.transactions.length) + 1;
+        const shuffledTransactions = this.transactions.sort(() => 0.5 - Math.random());
+        const selectedTransactions = shuffledTransactions.slice(0, numberOfTransactions);
+
+        // Remove the selected transactions from the original transactions array
+        this.transactions = this.transactions.filter(transaction => !selectedTransactions.includes(transaction));
+
+        return selectedTransactions;
     }
 }

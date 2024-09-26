@@ -22,8 +22,12 @@ export class Miner {
         if (this.mempool.isEmpty()) {
             console.log('No transactions to mine.');
         } else {;
-            const rewardTx = new Transaction("0x", this.miningRewardAddress, this.blockchain.miningReward, getRandomTimestamp());
-            this.mempool.addTransaction(rewardTx); // Add mining reward as a transaction            
+            const rewardTx: Transaction[] = [
+                new Transaction("0x", this.miningRewardAddress, this.blockchain.miningReward, getRandomTimestamp())
+            ];
+            
+            this.mempool.addTransactions(rewardTx);
+            
             const transactionsToMine = this.mempool.getPendingTransactions();
 
             // Start mining a block

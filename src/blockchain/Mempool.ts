@@ -9,13 +9,12 @@ export class Mempool {
     }
 
     // Add a transaction to the mempool (pending transactions)
-    addTransaction(transaction: Transaction) {
-        if (this.validateTransaction(transaction)) {
-            this.pendingTransactions.push(transaction);
-            console.log(`Transaction added: ${transaction.calculateHash()}`);
-        } else {
-            console.log('Transaction is invalid.');
-        }
+    addTransactions(transactions: Transaction[]) {
+        transactions.forEach(transaction => {
+            if (this.validateTransaction(transaction)) {
+                this.pendingTransactions.push(transaction);
+            }
+        })
     }
 
     // Simulate transaction validation (e.g., signature check, sufficient balance, etc.)
@@ -33,7 +32,8 @@ export class Mempool {
         return true;
     }
 
-    // Get all pending transactions (without removing them)
+    // Get all pending transactions (without selective condition)
+    //TODO - Selective based on gas effective
     getPendingTransactions(): Transaction[] {
         return this.pendingTransactions;
     }

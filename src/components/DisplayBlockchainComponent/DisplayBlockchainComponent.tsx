@@ -45,11 +45,11 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
 
   const generateBlock = async () => {
     if (blockchain && miner) {
-      const pendingTransaction = transactionService.miningTransaction();
+      const pendingTransactions = transactionService.miningTransactions();
 
       // Check if the transaction is not null before adding to the mempool
-      if (pendingTransaction) {      
-        mempool.addTransaction(pendingTransaction);
+      if (pendingTransactions) {      
+        mempool.addTransactions(pendingTransactions);
 
         // Mining pending transaction and set the mining time
         setMiningTime(miner.minePendingTransactions());        
