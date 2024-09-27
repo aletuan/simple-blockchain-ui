@@ -86,21 +86,15 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
     <div className="blockchain-view-container">
       <div className="blockchain-view">
         <h1 className="blockchain-header">Blockchain Lab</h1>
-        <p className="block-count">Number of Blocks: {blockchain.chain.length}</p>
-        <p className="transaction-count">Remaining Transactions: {remainingTransactions}</p>        
-        <div className="status-bar">
-          <p className="elapsed-time">Mining Time: {miningTime} seconds with difficulty level {difficulty}</p>
-          {remainingTransactions === 0 && (
-            <p className="no-more-transactions">No transactions available in the sample data</p>
-          )}
-        </div>
+        <p className="block-count">No of Blocks: {blockchain.chain.length} | Remaining Tnx: {remainingTransactions}</p>
+        <p className="elapsed-time">Mining Time: {miningTime} seconds with difficulty level {difficulty}</p>
         
         <button
           className="generate-button"
           onClick={handleGenerateBlock}
           disabled={isGenerating || remainingTransactions === 0} // Disable button when no more transactions
         >
-          {isGenerating ? 'Generating...' : 'Generate New Block'}
+          {remainingTransactions === 0 ? 'No more transaction' : isGenerating ? 'Generating...' : 'Generate New Block'}
         </button>
         
         <div className="pagination">
