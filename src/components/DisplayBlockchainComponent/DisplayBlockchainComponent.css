@@ -25,11 +25,26 @@
   }
   
   .block-count,
+  .transaction-count,
   .elapsed-time {
     font-size: 1.2em;
     margin-bottom: 20px;
     color: #666;
     margin-left: 10px; /* Ensure same left margin */
+  }
+
+  .no-more-transactions {
+    flex: 1;
+    text-align: right;
+    font-size: 1.2em;
+    color: #666;
+    padding-right: 10px;
+  }
+
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .generate-button {
@@ -49,9 +64,33 @@
   .generate-button:hover {
     background-color: #0056b3;
   }
+
+  .generate-button:disabled {
+    background-color: #cccccc; /* Change background color when disabled */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
+  }
   
   .blockchain-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
     gap: 10px; /* Add space between blocks */
   }
+
+  .pagination-control {
+    flex: 1;
+    text-align: right;
+    font-size: 1.2em;
+    color: #666;
+    margin-right: 10px;
+  }
+
+  .pagination-button {
+    margin-left: 5px;
+  }
+  
+  @media (min-width: 600px) {
+    .blockchain-list {
+      grid-template-columns: repeat(2, 1fr); /* Maximum 2 columns */
+    }
+  }
+  

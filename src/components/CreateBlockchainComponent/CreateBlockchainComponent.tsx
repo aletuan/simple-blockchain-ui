@@ -3,32 +3,45 @@ import './CreateBlockchainComponent.css';
 
 interface CreateBlockchainProps {
   difficulty: number;
+  intervalTime: number;
   showWarning: boolean;
-  handleDifficultyChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   createNewBlockchain: () => void;
 }
 
 const CreateBlockchainComponent: React.FC<CreateBlockchainProps> = ({
   difficulty,
+  intervalTime,
   showWarning,
-  handleDifficultyChange,
+  handleInputChange,
   createNewBlockchain
 }) => {
   return (
     <div className="create-blockchain ">
       <h1>Create Blockchain</h1>
       <div className="input-group">
-        <label htmlFor="difficulty">Difficulty:</label>
+        <label htmlFor="difficulty">Mining difficulty</label>
         <input
           type="number"
           id="difficulty"
           value={difficulty}
-          onChange={handleDifficultyChange}
+          onChange={(event) => handleInputChange(event)}
           min="1"
         />
       </div>
+      <div className="input-group">
+        <label htmlFor='intervalTime'>
+          New Transaction after seconds
+          </label>
+          <input
+            type="number"
+            id="intervalTime"
+            value={intervalTime}
+            onChange={(event) => handleInputChange(event)}
+          />
+      </div>    
       {showWarning && <p className="warning">High difficulty will take longer time to generate blocks.</p>}
-      <button className="create-button" onClick={createNewBlockchain}>Create New Blockchain</button>
+      <button className="create-button" onClick={createNewBlockchain}>Submit</button>
     </div>
   );
 };

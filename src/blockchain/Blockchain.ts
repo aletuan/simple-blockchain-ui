@@ -1,25 +1,25 @@
 import { Block } from './Block';
+import { Transaction } from './Transaction';
 
 export class Blockchain {
   chain: Block[];
+  difficulty: number;
+  miningReward: number;
 
-  constructor() {
+  constructor(difficulty: number) {
     this.chain = [this.createGenesisBlock()];
+    this.difficulty = difficulty;
+    this.miningReward = 100;
   }
 
   createGenesisBlock(): Block {
-    return new Block(Date.now(), '0', 'Genesis Block');
+    const genesisTransaction = new Transaction("0x", "0x", 1000, Date.now());
+    return new Block(Date.now(), 'null', [genesisTransaction]);
   }
 
   getLatestBlock(): Block {
     return this.chain[this.chain.length - 1];
-  }
-
-  addBlock(newBlock: Block): void {
-    newBlock.previousHash = this.getLatestBlock().hash;
-    newBlock.hash = newBlock.calculateHash();
-    this.chain.push(newBlock);
-  }
+  } 
 
   isChainValid(): boolean {
     for (let i = 1; i < this.chain.length; i++) {

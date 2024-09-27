@@ -2,9 +2,9 @@ import React from 'react';
 import { Block } from '../../blockchain/Block';
 
 import { truncateHash } from '../../utils/truncateHash';
-import { capitalColors } from '../../utils/capitalColors';
+import { generateColorFromHash } from '../../utils/generateColorFromHash';
 
-import './BlockComponent.css'; // Import the CSS file
+import './BlockComponent.css';
 
 interface BlockProps {
   block: Block;
@@ -14,16 +14,47 @@ interface BlockProps {
 
 const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   const formattedTimestamp = new Date(block.timestamp).toLocaleString();
-  const backgroundColor = capitalColors[block.data] || '#FFFFFF'; // Default to white if not found
+
+  let transactionData: string | JSX.Element;
+
+  if (Array.isArray(block.data)) {
+    transactionData = (
+      <table>
+        <thead>
+          <tr>
+            <th>From</th>
+            <th>To</th>
+            <th>Data</th>
+            <th>Time</th>
+          </tr>
+      </thead>
+      <tbody>
+        {/* TODO: Adding link to address and to address, each address will get air-drop 1000 token as incentive */}
+        {block.data.map((transaction, idx) => {
+          const transactionTimestamp = transaction.timestamp ? new Date(transaction.timestamp).toLocaleString() : 'Invalid timestamp';
+          return (
+            <tr key={idx}>
+              <td>{transaction.fromAddress}</td>
+              <td>{transaction.toAddress}</td>
+              <td>{transaction.amount}</td>
+              <td>{transactionTimestamp}</td>
+            </tr>
+          );
+        })}
+        </tbody>
+      </table>
+    );
+  } else {
+    transactionData = <p>{block.data}</p>;
+  }
 
   return (
-    <div className={`block ${isValid ? 'valid' : 'invalid'}`} style={{ backgroundColor }}>
+    <div className={`block ${isValid ? 'valid' : 'invalid'}`}>
       <p><strong>Block {index}</strong></p>
-      <p>Timestamp: {block.timestamp}</p>
-      <p>Formatted time: {formattedTimestamp}</p>
-      <p>Previous Hash: {truncateHash(block.previousHash)}</p>
-      <p>Hash: {truncateHash(block.hash)}</p>
-      <p>Data: {block.data}</p>
+      <p>Block Time: {formattedTimestamp}</p>
+      <p>Hash: <span style={{ color: generateColorFromHash(block.hash) }}>{truncateHash(block.hash)}</span></p>
+      <p>Previous Hash: <span style={{ color: generateColorFromHash(block.previousHash) }}>{truncateHash(block.previousHash)}</span></p>
+      <p>Trasactions {transactionData}</p>
     </div>
   );
 };

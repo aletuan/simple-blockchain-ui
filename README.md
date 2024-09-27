@@ -1,13 +1,14 @@
 # Simple Blockchain Demo
 
-This is a simple blockchain application built with React. The application allows you to create a new blockchain, generate new blocks, and display the blocks with some basic information. Each block contains a random capital city name, and the block's background color corresponds to the major color of the national flag of the country where the capital is located.
+This project demonstrates a simple blockchain implementation with a user interface for creating and viewing blocks. The application allows users to generate new blocks, view the blockchain, and see the details of each block.
 
 ## Features
 
-- Create a new blockchain with input of block mining difficulity
-- Generate new blocks
-- Display blocks with timestamp, previous hash, hash, and data (random capital city name)
-- Color each block based on the major color of the national flag of the country where the capital is located
+- Create a new blockchain with a specified difficulty level.
+- Add transactions to the mempool.
+- Mine new blocks and add them to the blockchain.
+- View the blockchain and the details of each block.
+- Display a unique identifier for the miner based on the running instance.
 
 ## Getting Started
 
@@ -47,7 +48,7 @@ The mining process in this application involves generating a new block and addin
 
 2. Generate Block:
 
-- A new block is created with the current timestamp, the hash of the latest block, and a random capital.
+- A new block is created with the current timestamp and the hash of the latest block.
 - The block is then mined with the specified difficulty. This involves finding a nonce value that makes the block's hash meet the difficulty criteria.
 
 3. Update Blockchain:
