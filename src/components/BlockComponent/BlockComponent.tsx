@@ -15,10 +15,10 @@ interface BlockProps {
 const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   const formattedTimestamp = new Date(block.timestamp).toLocaleString();
 
-  let formattedData: string | JSX.Element;
+  let transactionData: string | JSX.Element;
 
   if (Array.isArray(block.data)) {
-    formattedData = (
+    transactionData = (
       <table>
         <thead>
           <tr>
@@ -45,7 +45,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
       </table>
     );
   } else {
-    formattedData = <p>{block.data}</p>;
+    transactionData = <p>{block.data}</p>;
   }
 
   return (
@@ -54,7 +54,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
       <p>Block Time: {formattedTimestamp}</p>
       <p>Hash: <span style={{ color: generateColorFromHash(block.hash) }}>{truncateHash(block.hash)}</span></p>
       <p>Previous Hash: <span style={{ color: generateColorFromHash(block.previousHash) }}>{truncateHash(block.previousHash)}</span></p>
-      <p>Transaction (Tnx) {formattedData}</p>
+      <p>Trasactions {transactionData}</p>
     </div>
   );
 };

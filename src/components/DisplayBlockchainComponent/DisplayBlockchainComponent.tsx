@@ -86,8 +86,8 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
     <div className="blockchain-view-container">
       <div className="blockchain-view">
         <h1 className="blockchain-header">Blockchain Lab</h1>
-        <p className="block-count">No of Blocks: {blockchain.chain.length} | Remaining Tnx: {remainingTransactions}</p>
-        <p className="elapsed-time">Mining Time: {miningTime} seconds with difficulty level {difficulty}</p>
+        <p className="block-count">Blocks No: {blockchain.chain.length} *** Difficulty {difficulty} *** Remaining Tnx: {remainingTransactions}</p>
+        <p className="elapsed-time">Mining Time: {miningTime} seconds</p>
         
         <button
           className="generate-button"
