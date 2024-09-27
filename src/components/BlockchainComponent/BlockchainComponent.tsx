@@ -5,10 +5,6 @@ import { Blockchain } from '../../blockchain/Blockchain';
 import CreateBlockchainComponent from '../CreateBlockchainComponent';
 import DisplayBlockchainComponent from '../DisplayBlockchainComponent';
 
-
-import './BlockchainComponent.css';
-
-
 const BlockchainComponent: React.FC = () => {
   const [blockchain, setBlockchain] = useState<Blockchain | null>(null);
   const [view, setView] = useState<'create' | 'view'>('create');

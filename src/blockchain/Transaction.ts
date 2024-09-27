@@ -5,7 +5,7 @@ export class Transaction {
     fromAddress: string;
     toAddress: string;
     amount: number;
-    timestamp: number | undefined;
+    timestamp: number;
 
     constructor(fromAddress: string, toAddress: string, amount: number, timestamp: number) {
         this.fromAddress = fromAddress;

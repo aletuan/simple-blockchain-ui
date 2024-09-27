@@ -1,8 +1,6 @@
 import { Block } from './Block';
 import { Transaction } from './Transaction';
 
-import { getRandomTimestamp } from '../utils/getRandomTimestamp';
-
 export class Blockchain {
   chain: Block[];
   difficulty: number;
@@ -15,7 +13,7 @@ export class Blockchain {
   }
 
   createGenesisBlock(): Block {
-    const genesisTransaction = new Transaction("0x", "0x", 1000, getRandomTimestamp());
+    const genesisTransaction = new Transaction("0x", "0x", 1000, Date.now());
     return new Block(Date.now(), 'null', [genesisTransaction]);
   }
 

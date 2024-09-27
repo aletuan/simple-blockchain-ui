@@ -2,7 +2,6 @@ import { Block } from './Block';
 import { Blockchain } from './Blockchain';
 import { Mempool } from './Mempool';
 import { Transaction } from './Transaction';
-import { getRandomTimestamp } from '../utils/getRandomTimestamp';
 
 // Simulate the miner
 export class Miner {
@@ -23,7 +22,7 @@ export class Miner {
             console.log('No transactions to mine.');
         } else {;
             const rewardTx: Transaction[] = [
-                new Transaction("0x", this.miningRewardAddress, this.blockchain.miningReward, getRandomTimestamp())
+                new Transaction("0x", this.miningRewardAddress, this.blockchain.miningReward, Date.now())
             ];
             
             this.mempool.addTransactions(rewardTx);
