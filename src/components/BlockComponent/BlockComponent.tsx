@@ -34,8 +34,8 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
           const transactionTimestamp = transaction.timestamp ? new Date(transaction.timestamp).toLocaleString() : 'Invalid timestamp';
           return (
             <tr key={idx}>
-              <td>{transaction.fromAddress}</td>
-              <td>{transaction.toAddress}</td>
+              <td>{transaction.fromAddress.username}</td>
+              <td>{transaction.toAddress.username}</td>
               <td>{transaction.amount}</td>
               <td>{transactionTimestamp}</td>
             </tr>

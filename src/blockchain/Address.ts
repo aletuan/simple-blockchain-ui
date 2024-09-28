@@ -3,7 +3,7 @@ export class Address {
     username: string;
     amount: number = 1000;
 
-    constructor(address: string, username: string) {
+    constructor(username: string) {
         this.username = username;
         this.address = this.generateAddress();
     }

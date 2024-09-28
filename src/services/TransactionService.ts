@@ -1,4 +1,5 @@
 import { Transaction } from "../blockchain/Transaction";
+import { Address } from "../blockchain/Address";
 
 export class TransactionService {
     private transactions: Transaction[] = [];
@@ -9,13 +10,13 @@ export class TransactionService {
 
     private autoGenerateTransaction(intervalTime: number) {
         setInterval(() => {
-        const newTransaction = new Transaction(
-            `User${Math.floor(Math.random() * 100)}`,
-            `User${Math.floor(Math.random() * 100)}`,
-            Math.floor(Math.random() * 100),
-            Date.now()
-        );
-        this.transactions.push(newTransaction);
+            const newTransaction = new Transaction(
+                new Address(`User${Math.floor(Math.random() * 100)}`),
+                new Address(`User${Math.floor(Math.random() * 100)}`),
+                Math.floor(Math.random() * 100),
+                Date.now()
+            );
+            this.transactions.push(newTransaction);
         }, intervalTime);
     }
 

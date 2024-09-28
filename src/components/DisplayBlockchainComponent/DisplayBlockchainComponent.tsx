@@ -30,7 +30,7 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
 
   const [mempool] = useState<Mempool>(new Mempool());
   const [miningTime, setMiningTime] = useState<number>(0);
-  const miner = new Miner(blockchain, mempool, "[miner]");
+  const miner = new Miner(blockchain, mempool, 'localhost');
   const transactionService = transactionServiceRef.current;
   const [remainingTransactions, setRemainingTransactions] = useState<number>(transactionService.getTransactionCount());
 

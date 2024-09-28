@@ -1,3 +1,4 @@
+import { Address } from './Address';
 import { Block } from './Block';
 import { Transaction } from './Transaction';
 
@@ -5,15 +6,17 @@ export class Blockchain {
   chain: Block[];
   difficulty: number;
   miningReward: number;
+  rootAddress: Address;
 
   constructor(difficulty: number) {
-    this.chain = [this.createGenesisBlock()];
     this.difficulty = difficulty;
     this.miningReward = 100;
+    this.rootAddress = new Address('0x');
+    this.chain = [this.createGenesisBlock()];
   }
 
   createGenesisBlock(): Block {
-    const genesisTransaction = new Transaction("0x", "0x", 1000, Date.now());
+    const genesisTransaction = new Transaction(this.rootAddress, this.rootAddress, 1000, Date.now());
     return new Block(Date.now(), 'null', [genesisTransaction]);
   }
 

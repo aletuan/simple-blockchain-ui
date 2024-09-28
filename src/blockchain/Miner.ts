@@ -1,3 +1,4 @@
+import { Address } from './Address';
 import { Block } from './Block';
 import { Blockchain } from './Blockchain';
 import { Mempool } from './Mempool';
@@ -6,13 +7,13 @@ import { Transaction } from './Transaction';
 // Simulate the miner
 export class Miner {
     private blockchain: Blockchain;
-    private miningRewardAddress: string;
+    private miningRewardAddress: Address;
     private mempool: Mempool
 
-    constructor(blockchain: Blockchain, mempool: Mempool, miningRewardAddress: string) {
+    constructor(blockchain: Blockchain, mempool: Mempool, minerAlias: string) {
         this.blockchain = blockchain;
         this.mempool = mempool;
-        this.miningRewardAddress = miningRewardAddress;
+        this.miningRewardAddress = new Address(minerAlias);
     }
 
     // "Mine" transactions by taking them out of the mempool and adding them to a block (in a real scenario)
@@ -22,7 +23,7 @@ export class Miner {
             console.log('No transactions to mine.');
         } else {;
             const rewardTx: Transaction[] = [
-                new Transaction("0x", this.miningRewardAddress, this.blockchain.miningReward, Date.now())
+                new Transaction(this.blockchain.rootAddress, this.miningRewardAddress, this.blockchain.miningReward, Date.now())
             ];
             
             this.mempool.addTransactions(rewardTx);
