@@ -1,96 +1,105 @@
 .blockchain-view-container {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 20px;
-    min-height: 100vh;
-  }
-  
-  .blockchain-view {
-    text-align: left; /* Align text to the left */
-    padding: 20px;
-    max-width: 1000px; /* Increase max-width for better responsiveness */
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .blockchain-header {
-    font-size: 2em;
-    margin-bottom: 10px;
-    color: #333;
-    margin-left: 10px; /* Ensure same left margin */
-  }
-  
-  .block-count,
-  .transaction-count,
-  .elapsed-time {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    color: #666;
-    margin-left: 10px; /* Ensure same left margin */
-  }
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 20px;
+  min-height: 100vh;
+}
 
-  .no-more-transactions {
-    flex: 1;
-    text-align: right;
-    font-size: 1.2em;
-    color: #666;
-    padding-right: 10px;
-  }
+.blockchain-view {
+  text-align: left;
+  /* Align text to the left */
+  padding: 20px;
+  max-width: 1000px;
+  /* Increase max-width for better responsiveness */
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  .status-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .generate-button {
-    width: 100%;
-    max-width: 200px;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-bottom: 20px; /* Add bottom margin */
-    margin-left: 10px;
-  }
-  
-  .generate-button:hover {
-    background-color: #0056b3;
-  }
+.blockchain-header {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #333;
+  margin-left: 10px;
+  /* Ensure same left margin */
+}
 
-  .generate-button:disabled {
-    background-color: #cccccc; /* Change background color when disabled */
-    cursor: not-allowed; /* Change cursor to indicate disabled state */
-  }
-  
+.block-count,
+.transaction-count,
+.elapsed-time {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  color: #666;
+  margin-left: 10px;
+  /* Ensure same left margin */
+}
+
+.no-more-transactions {
+  flex: 1;
+  text-align: right;
+  font-size: 1.2em;
+  color: #666;
+  padding-right: 10px;
+}
+
+.status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.generate-button {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 20px;
+  /* Add bottom margin */
+  margin-left: 10px;
+}
+
+.generate-button:hover {
+  background-color: #0056b3;
+}
+
+.generate-button:disabled {
+  background-color: #cccccc;
+  /* Change background color when disabled */
+  cursor: not-allowed;
+  /* Change cursor to indicate disabled state */
+}
+
+.blockchain-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  /* Responsive grid layout */
+  gap: 10px;
+  /* Add space between blocks */
+}
+
+.pagination-control {
+  flex: 1;
+  text-align: right;
+  font-size: 1.2em;
+  color: #666;
+  margin-right: 10px;
+}
+
+.pagination-button {
+  margin-left: 5px;
+}
+
+@media (min-width: 600px) {
   .blockchain-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid layout */
-    gap: 10px; /* Add space between blocks */
+    grid-template-columns: repeat(2, 1fr);
+    /* Maximum 2 columns */
   }
-
-  .pagination-control {
-    flex: 1;
-    text-align: right;
-    font-size: 1.2em;
-    color: #666;
-    margin-right: 10px;
-  }
-
-  .pagination-button {
-    margin-left: 5px;
-  }
-  
-  @media (min-width: 600px) {
-    .blockchain-list {
-      grid-template-columns: repeat(2, 1fr); /* Maximum 2 columns */
-    }
-  }
-  
+}

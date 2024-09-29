@@ -1,5 +1,6 @@
 import React from 'react';
 import { Block } from '../../blockchain/Block';
+import { Link } from 'react-router-dom';
 
 import { truncateHash } from '../../utils/truncateHash';
 import { generateColorFromHash } from '../../utils/generateColorFromHash';
@@ -33,8 +34,28 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index }) => {
           const transactionTimestamp = transaction.timestamp ? new Date(transaction.timestamp).toLocaleString() : 'Invalid timestamp';
           return (
             <tr key={idx}>
-              <td>{transaction.fromAddress.username}</td>
-              <td>{transaction.toAddress.username}</td>
+              <td>
+                <Link 
+                  to='/address'
+                  state={{ 
+                    address: transaction.fromAddress.address, 
+                    balance: transaction.fromAddress.balance, 
+                    alias: transaction.fromAddress.alias 
+                  } as any}>
+                  {transaction.fromAddress.alias}
+                </Link>
+              </td>
+              <td>
+                <Link 
+                  to='/address'
+                  state={{ 
+                    address: transaction.toAddress.address, 
+                    balance: transaction.toAddress.balance, 
+                    alias: transaction.toAddress.alias 
+                  } as any}>
+                  {transaction.toAddress.alias}
+                </Link>
+              </td>
               <td>{transaction.amount}</td>
               <td>{transactionTimestamp}</td>
             </tr>

@@ -1,10 +1,10 @@
 export class Address {
     address: string;
-    username: string;
-    amount: number = 1000;
+    alias: string;
+    balance: number = 1000;
 
-    constructor(username: string) {
-        this.username = username;
+    constructor(alias: string) {
+        this.alias = alias;
         this.address = this.generateAddress();
     }
 
@@ -16,12 +16,12 @@ export class Address {
         return `${this.address.slice(0, 6)}...${this.address.slice(-4)}`;
     }    
     
-    changeAmount(value: number): void {
+    updateBalance(value: number): void {
         if (value > 0) {
-            this.amount += value;
+            this.balance += value;
         } else if (value < 0) {
-            if (this.amount + value >= 0) {
-                this.amount += value;
+            if (this.balance + value >= 0) {
+                this.balance += value;
             } else {
                 throw new Error("Insufficient amount");
             }
