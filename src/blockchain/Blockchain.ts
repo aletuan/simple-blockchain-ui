@@ -7,12 +7,14 @@ export class Blockchain {
   difficulty: number;
   miningReward: number;
   rootAddress: Address;
+  intervalTime: number;
 
-  constructor(difficulty: number) {
+  constructor(difficulty: number, intervalTime: number) {
     this.difficulty = difficulty;
     this.miningReward = 100;
     this.rootAddress = new Address('0x');
     this.chain = [this.createGenesisBlock()];
+    this.intervalTime = intervalTime;
   }
 
   createGenesisBlock(): Block {

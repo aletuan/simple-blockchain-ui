@@ -1,12 +1,18 @@
-import React from 'react';
-import BlockchainComponent from './components/BlockchainComponent';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import CreateBlockchainComponent from './components/CreateBlockchainComponent';
+import DisplayBlockchainComponent from './components/DisplayBlockchainComponent';
+
 import './App.css';
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <div className="App">
-      <BlockchainComponent />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/create-blockchain" />} />
+        <Route path="/create-blockchain" element={<CreateBlockchainComponent />} />
+        <Route path="/display-blockchain" element={<DisplayBlockchainComponent />} />
+      </Routes>
+    </Router>
   );
 };
 

@@ -9,10 +9,9 @@ import './BlockComponent.css';
 interface BlockProps {
   block: Block;
   index: number;
-  isValid: boolean;
 }
 
-const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
+const BlockComponent: React.FC<BlockProps> = ({ block, index }) => {
   const formattedTimestamp = new Date(block.timestamp).toLocaleString();
 
   let transactionData: string | JSX.Element;
@@ -49,7 +48,7 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index, isValid }) => {
   }
 
   return (
-    <div className={`block ${isValid ? 'valid' : 'invalid'}`}>
+    <div className={`block ${true ? 'valid' : 'invalid'}`}>
       <p><strong>Block {index}</strong></p>
       <p>Block Time: {formattedTimestamp}</p>
       <p>Hash: <span style={{ color: generateColorFromHash(block.hash) }}>{truncateHash(block.hash)}</span></p>

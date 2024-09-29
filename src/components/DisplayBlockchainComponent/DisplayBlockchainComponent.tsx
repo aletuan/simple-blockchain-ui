@@ -1,36 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Blockchain } from '../../blockchain/Blockchain';
+import { useLocation } from 'react-router-dom';
+
 import BlockComponent from '../BlockComponent';
 import { Mempool } from '../../blockchain/Mempool';
 import { Miner } from '../../blockchain/Miner';
 
 import { TransactionService } from '../../services/TransactionService';
 
-
 import './DisplayBlockchainComponent.css';
 
 
-interface DisplayBlockchainProps {
-  blockchain: Blockchain;
-  difficulty: number;
-  intervalTime: number;
-}
-
-const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
-  blockchain,
-  difficulty,
-  intervalTime
-}) => {
+const DisplayBlockchainComponent = () => {
+  const location = useLocation();
+  const { miningDifficulty, intervalTime } = location.state || {};
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
-  const transactionServiceRef = useRef<TransactionService | null>(null);
 
+  // init blockchain and transaction service
+  const blockchainRef = useRef<Blockchain | null>(null);
+  if (!blockchainRef.current) {
+    blockchainRef.current = new Blockchain(miningDifficulty, intervalTime * 1000);
+  }  
+
+  const transactionServiceRef = useRef<TransactionService | null>(null);
   if (!transactionServiceRef.current) {
-    transactionServiceRef.current = new TransactionService(intervalTime);
+    transactionServiceRef.current = new TransactionService(blockchainRef.current.intervalTime);
   }
 
-  const [mempool] = useState<Mempool>(new Mempool());
+  // init mempool and miner
+  const mempool = new Mempool();
   const [miningTime, setMiningTime] = useState<number>(0);
-  const miner = new Miner(blockchain, mempool, 'localhost');
+  const miner = new Miner(blockchainRef.current, mempool, 'localhost');
   const transactionService = transactionServiceRef.current;
   const [remainingTransactions, setRemainingTransactions] = useState<number>(transactionService.getTransactionCount());
 
@@ -38,10 +38,10 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   const blocksPerPage = 4;
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil(blockchain.chain.length / blocksPerPage);
+  const totalPages = Math.ceil(blockchainRef.current.chain.length / blocksPerPage);
 
   // Get the blocks for the current page
-  const currentBlocks = blockchain.chain.slice(
+  const currentBlocks = blockchainRef.current.chain.slice(
     (currentPage - 1) * blocksPerPage,
     currentPage * blocksPerPage
   );
@@ -60,7 +60,7 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
   }, [transactionService]);  
 
   const generateBlock = async () => {
-    if (blockchain && miner) {
+    if (blockchainRef.current && miner) {
       const pendingTransactions = transactionService.miningTransactions();
 
       // Check if the transaction is not null before adding to the mempool
@@ -86,8 +86,8 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
     <div className="blockchain-view-container">
       <div className="blockchain-view">
         <h1 className="blockchain-header">Blockchain Lab</h1>
-        <p className="block-count">Difficulty {difficulty} | Remaining Tnx: {remainingTransactions}</p>
-        <p className="elapsed-time">Took {miningTime} seconds to mine the last block {blockchain.chain.length-1}</p>
+        <p className="block-count">Difficulty {blockchainRef.current.difficulty} | Remaining Tnx: {remainingTransactions}</p>
+        <p className="elapsed-time">Took {miningTime} seconds to mine the last block {blockchainRef.current.chain.length-1}</p>
         
         <button
           className="generate-button"
@@ -112,9 +112,9 @@ const DisplayBlockchainComponent: React.FC<DisplayBlockchainProps> = ({
           </div>
         
           <div className="blockchain-list">
-            {currentBlocks.map((block, index) => {
+            {currentBlocks?.map((block, index) => {
               const currentIndex = (currentPage - 1) * blocksPerPage + index
-              return <BlockComponent key={currentIndex} block={block} index={currentIndex} isValid={blockchain.isChainValid()} />
+              return <BlockComponent key={currentIndex} block={block} index={currentIndex} />
             })}
           </div>          
         </div>
