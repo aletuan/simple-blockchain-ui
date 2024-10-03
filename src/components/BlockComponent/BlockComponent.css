@@ -27,3 +27,18 @@ tr {
 tr:hover {
   background-color: #f1f1f1;
 }
+
+.address-link {
+  color: #ff5722; /* Highlight color */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.address-link:hover {
+  text-decoration: underline;
+  color: #e64a19; /* Darker highlight color on hover */
+}
+
+.address-link:visited {
+  color: #ff8a65; /* Lighter highlight color for visited links */
+}

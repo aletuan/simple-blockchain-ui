@@ -18,6 +18,7 @@ const AddressComponent = () => {
             <p>Address: {address}</p>
             <p>Balance: {balance}</p>
             <p>Alias: {alias}</p>
+            <p>Transaction</p>
             </div>
         </div>
     );

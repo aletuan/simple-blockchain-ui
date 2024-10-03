@@ -41,7 +41,9 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index }) => {
                     address: transaction.fromAddress.address, 
                     balance: transaction.fromAddress.balance, 
                     alias: transaction.fromAddress.alias 
-                  } as any}>
+                  }}
+                  className="address-link"
+                >
                   {transaction.fromAddress.alias}
                 </Link>
               </td>
@@ -52,7 +54,9 @@ const BlockComponent: React.FC<BlockProps> = ({ block, index }) => {
                     address: transaction.toAddress.address, 
                     balance: transaction.toAddress.balance, 
                     alias: transaction.toAddress.alias 
-                  } as any}>
+                  }}
+                  className="address-link"
+                >
                   {transaction.toAddress.alias}
                 </Link>
               </td>
